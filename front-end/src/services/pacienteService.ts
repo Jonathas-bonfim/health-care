@@ -13,16 +13,24 @@ import type { Paciente } from "../types";
 
 const COLLECTION_NAME = "pacientes";
 
+/** Remove campos undefined do objeto (Firestore não aceita undefined). */
+function semUndefined<T extends object>(obj: T): Record<string, unknown> {
+  return Object.fromEntries(
+    Object.entries(obj).filter(([, v]) => v !== undefined)
+  ) as Record<string, unknown>;
+}
+
 export const pacienteService = {
-  // Criar paciente
+  // Criar paciente (apenas nome é obrigatório; demais campos opcionais não são enviados se vazios)
   async create(
     paciente: Omit<Paciente, "id" | "createdAt" | "updatedAt">,
   ): Promise<string> {
-    const docRef = await addDoc(collection(db, COLLECTION_NAME), {
+    const payload = semUndefined({
       ...paciente,
       createdAt: Timestamp.now(),
       updatedAt: Timestamp.now(),
     });
+    const docRef = await addDoc(collection(db, COLLECTION_NAME), payload);
     return docRef.id;
   },
 
@@ -58,10 +66,11 @@ export const pacienteService = {
     paciente: Partial<Omit<Paciente, "id" | "createdAt" | "updatedAt">>,
   ): Promise<void> {
     const docRef = doc(db, COLLECTION_NAME, id);
-    await updateDoc(docRef, {
+    const payload = semUndefined({
       ...paciente,
       updatedAt: Timestamp.now(),
     });
+    await updateDoc(docRef, payload);
   },
 
   // Deletar paciente
