@@ -60,8 +60,8 @@ export const AtendimentosList = ({ onNewClick }: AtendimentosListProps) => {
   return (
     <div className="space-y-4">
       {/* Filtros */}
-      <div className="bg-white p-4 rounded-lg shadow">
-        <div className="grid grid-cols-3 gap-4 mb-4">
+      <div className="bg-white p-3 sm:p-4 rounded-lg shadow">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-4">
           <Input
             label="Data Inicial"
             type="date"
@@ -84,70 +84,72 @@ export const AtendimentosList = ({ onNewClick }: AtendimentosListProps) => {
             ]}
           />
         </div>
-        <div className="flex gap-2">
-          <Button onClick={handleBuscar}>Buscar</Button>
-          <Button onClick={onNewClick}>Novo</Button>
+        <div className="flex flex-col sm:flex-row gap-2">
+          <Button onClick={handleBuscar} className="w-full sm:w-auto">Buscar</Button>
+          <Button onClick={onNewClick} className="w-full sm:w-auto">Novo</Button>
         </div>
       </div>
 
       {/* Lista de Atendimentos */}
       <div className="bg-white rounded-lg shadow overflow-hidden">
         {isLoading ? (
-          <div className="p-8 text-center text-gray-500">Carregando...</div>
+          <div className="p-6 sm:p-8 text-center text-gray-500">Carregando...</div>
         ) : atendimentos && atendimentos.length > 0 ? (
-          <table className="w-full">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Paciente</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Observação</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {atendimentos.map((atendimento) => (
-                <tr key={atendimento.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {formatDate(atendimento.data)}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {atendimento.paciente?.nome ?? `Paciente (${atendimento.pacienteId})`}
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-500">
-                    <div className="max-w-md truncate">{atendimento.observacao || '-'}</div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <div className="flex justify-end gap-2">
-                      <Button
-                        variant="outline"
-                        onClick={() => handleVisualizar(atendimento)}
-                        className="text-xs px-2 py-1"
-                      >
-                        Ver
-                      </Button>
-                      <Button
-                        variant="secondary"
-                        onClick={() => handleEditar(atendimento)}
-                        className="text-xs px-2 py-1"
-                      >
-                        Editar
-                      </Button>
-                      <Button
-                        variant="danger"
-                        onClick={() => handleExcluir(atendimento.id)}
-                        className="text-xs px-2 py-1"
-                        disabled={deleteMutation.isPending}
-                      >
-                        Excluir
-                      </Button>
-                    </div>
-                  </td>
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[640px]">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-3 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data</th>
+                  <th className="px-3 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Paciente</th>
+                  <th className="px-3 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">Observação</th>
+                  <th className="px-3 sm:px-6 py-2 sm:py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {atendimentos.map((atendimento) => (
+                  <tr key={atendimento.id} className="hover:bg-gray-50">
+                    <td className="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-sm text-gray-900">
+                      {formatDate(atendimento.data)}
+                    </td>
+                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-sm text-gray-900">
+                      {atendimento.paciente?.nome ?? `Paciente (${atendimento.pacienteId})`}
+                    </td>
+                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-sm text-gray-500 hidden md:table-cell">
+                      <div className="max-w-md truncate">{atendimento.observacao || '-'}</div>
+                    </td>
+                    <td className="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-right text-sm font-medium">
+                      <div className="flex justify-end gap-1 sm:gap-2 flex-wrap">
+                        <Button
+                          variant="outline"
+                          onClick={() => handleVisualizar(atendimento)}
+                          className="text-xs px-2 py-1"
+                        >
+                          Ver
+                        </Button>
+                        <Button
+                          variant="secondary"
+                          onClick={() => handleEditar(atendimento)}
+                          className="text-xs px-2 py-1"
+                        >
+                          Editar
+                        </Button>
+                        <Button
+                          variant="danger"
+                          onClick={() => handleExcluir(atendimento.id)}
+                          className="text-xs px-2 py-1"
+                          disabled={deleteMutation.isPending}
+                        >
+                          Excluir
+                        </Button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         ) : (
-          <div className="p-8 text-center text-gray-500">
+          <div className="p-6 sm:p-8 text-center text-gray-500">
             Nenhum atendimento encontrado
           </div>
         )}

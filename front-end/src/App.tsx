@@ -35,10 +35,10 @@ function App() {
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center">
-              <h1 className="text-xl font-bold text-gray-900">Sistema de Saúde</h1>
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-14 sm:h-16">
+            <div className="flex items-center min-w-0">
+              <h1 className="text-base sm:text-xl font-bold text-gray-900 truncate">Sistema de Saúde</h1>
             </div>
           </div>
         </div>
@@ -46,19 +46,19 @@ function App() {
 
       {/* Navigation */}
       <nav className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex space-x-1">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex gap-0 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent -mb-px" style={{ scrollbarWidth: 'thin' }}>
             {navigation.map((item) => (
               <button
                 key={item.id}
                 onClick={() => setCurrentPage(item.id)}
-                className={`px-4 py-3 text-sm font-medium transition-colors border-b-2 ${
+                className={`shrink-0 px-3 py-3 sm:px-4 text-xs sm:text-sm font-medium transition-colors border-b-2 whitespace-nowrap ${
                   currentPage === item.id
                     ? 'border-blue-600 text-blue-600'
                     : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
                 }`}
               >
-                <span className="mr-2">{item.icon}</span>
+                <span className="mr-1 sm:mr-2">{item.icon}</span>
                 {item.label}
               </button>
             ))}
@@ -67,7 +67,7 @@ function App() {
       </nav>
 
       {/* Main Content */}
-      <main>{renderPage()}</main>
+      <main className="min-h-0">{renderPage()}</main>
     </div>
   );
 }

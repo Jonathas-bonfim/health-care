@@ -173,8 +173,8 @@ export const AtendimentoModal = ({ isOpen, onClose, atendimento, viewOnly = fals
         <div className="space-y-4">
           <h3 className="text-lg font-semibold text-gray-800 border-b pb-2">Dados do Atendimento</h3>
           
-          <div className="flex gap-2 items-end">
-            <div className="flex-1 min-w-0">
+          <div className="flex flex-col sm:flex-row gap-2 sm:items-end">
+            <div className="flex-1 w-full min-w-0">
               <Select
                 label="Paciente *"
                 value={pacienteId}
@@ -228,7 +228,7 @@ export const AtendimentoModal = ({ isOpen, onClose, atendimento, viewOnly = fals
         <div className="space-y-4">
           <h3 className="text-lg font-semibold text-gray-800 border-b pb-2">Exame Físico</h3>
           
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Input
               label="Pressão Sistólica (mmHg)"
               type="number"
@@ -245,7 +245,7 @@ export const AtendimentoModal = ({ isOpen, onClose, atendimento, viewOnly = fals
             />
           </div>
 
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <Input
               label="Peso (kg)"
               type="number"
@@ -271,7 +271,7 @@ export const AtendimentoModal = ({ isOpen, onClose, atendimento, viewOnly = fals
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Input
               label="Temperatura (°C)"
               type="number"
@@ -304,7 +304,7 @@ export const AtendimentoModal = ({ isOpen, onClose, atendimento, viewOnly = fals
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Input
               label="Saturação (%)"
               type="number"
@@ -322,7 +322,7 @@ export const AtendimentoModal = ({ isOpen, onClose, atendimento, viewOnly = fals
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Input
               label="Frequência Cardíaca (bpm)"
               type="number"
@@ -345,8 +345,8 @@ export const AtendimentoModal = ({ isOpen, onClose, atendimento, viewOnly = fals
           <h3 className="text-lg font-semibold text-gray-800 border-b pb-2">Medicamentos</h3>
           
           {!viewOnly && (
-            <div className="flex gap-2">
-              <div className="flex-1 relative">
+            <div className="flex flex-col sm:flex-row gap-2">
+              <div className="flex-1 relative min-w-0">
                 <Input
                   placeholder="Buscar medicamento..."
                   value={medicamentoInput}
@@ -384,18 +384,20 @@ export const AtendimentoModal = ({ isOpen, onClose, atendimento, viewOnly = fals
                   </div>
                 )}
               </div>
-              <Button type="button" onClick={() => handleAddMedicamento()} disabled={medicamentosFiltrados.length === 0 || medicamentosFiltrados.filter(m => !medicamentosSelecionados.includes(m.id)).length === 0}>
-                Adicionar
-              </Button>
-              <Button
-                type="button"
-                variant="secondary"
-                onClick={() => setMedicamentoModalAberto(true)}
-                title="Cadastrar novo medicamento"
-                className="shrink-0 w-10 px-0 flex items-center justify-center"
-              >
-                +
-              </Button>
+              <div className="flex gap-2">
+                <Button type="button" onClick={() => handleAddMedicamento()} disabled={medicamentosFiltrados.length === 0 || medicamentosFiltrados.filter(m => !medicamentosSelecionados.includes(m.id)).length === 0} className="flex-1 sm:flex-none">
+                  Adicionar
+                </Button>
+                <Button
+                  type="button"
+                  variant="secondary"
+                  onClick={() => setMedicamentoModalAberto(true)}
+                  title="Cadastrar novo medicamento"
+                  className="shrink-0 w-10 px-0 flex items-center justify-center"
+                >
+                  +
+                </Button>
+              </div>
             </div>
           )}
 
@@ -427,8 +429,8 @@ export const AtendimentoModal = ({ isOpen, onClose, atendimento, viewOnly = fals
           <h3 className="text-lg font-semibold text-gray-800 border-b pb-2">Exames</h3>
           
           {!viewOnly && (
-            <div className="flex gap-2">
-              <div className="flex-1 relative">
+            <div className="flex flex-col sm:flex-row gap-2">
+              <div className="flex-1 relative min-w-0">
                 <Input
                   placeholder="Buscar exame..."
                   value={exameInput}
@@ -466,18 +468,20 @@ export const AtendimentoModal = ({ isOpen, onClose, atendimento, viewOnly = fals
                   </div>
                 )}
               </div>
-              <Button type="button" onClick={() => handleAddExame()} disabled={examesFiltrados.length === 0 || examesFiltrados.filter(e => !examesSelecionados.includes(e.id)).length === 0}>
-                Adicionar
-              </Button>
-              <Button
-                type="button"
-                variant="secondary"
-                onClick={() => setExameModalAberto(true)}
-                title="Cadastrar novo exame"
-                className="shrink-0 w-10 px-0 flex items-center justify-center"
-              >
-                +
-              </Button>
+              <div className="flex gap-2">
+                <Button type="button" onClick={() => handleAddExame()} disabled={examesFiltrados.length === 0 || examesFiltrados.filter(e => !examesSelecionados.includes(e.id)).length === 0} className="flex-1 sm:flex-none">
+                  Adicionar
+                </Button>
+                <Button
+                  type="button"
+                  variant="secondary"
+                  onClick={() => setExameModalAberto(true)}
+                  title="Cadastrar novo exame"
+                  className="shrink-0 w-10 px-0 flex items-center justify-center"
+                >
+                  +
+                </Button>
+              </div>
             </div>
           )}
 
@@ -507,11 +511,11 @@ export const AtendimentoModal = ({ isOpen, onClose, atendimento, viewOnly = fals
         {error && <p className="text-red-600 text-sm">{error}</p>}
 
         {!viewOnly && (
-          <div className="flex justify-end gap-2 pt-4 border-t">
-            <Button type="button" variant="outline" onClick={onClose}>
+          <div className="flex flex-col-reverse sm:flex-row justify-end gap-2 pt-4 border-t">
+            <Button type="button" variant="outline" onClick={onClose} className="w-full sm:w-auto">
               Cancelar
             </Button>
-            <Button type="submit" disabled={createMutation.isPending || updateMutation.isPending}>
+            <Button type="submit" disabled={createMutation.isPending || updateMutation.isPending} className="w-full sm:w-auto">
               {createMutation.isPending || updateMutation.isPending ? 'Salvando...' : 'Salvar'}
             </Button>
           </div>
@@ -519,7 +523,7 @@ export const AtendimentoModal = ({ isOpen, onClose, atendimento, viewOnly = fals
 
         {viewOnly && (
           <div className="flex justify-end pt-4 border-t">
-            <Button type="button" onClick={onClose}>
+            <Button type="button" onClick={onClose} className="w-full sm:w-auto">
               Fechar
             </Button>
           </div>
