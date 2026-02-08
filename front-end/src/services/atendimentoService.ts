@@ -12,10 +12,8 @@ import {
   orderBy 
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
-import type { Atendimento, ExameFisico } from '../types';
+import type { Atendimento } from '../types';
 import { pacienteService } from './pacienteService';
-import { medicamentoService } from './medicamentoService';
-import { exameService } from './exameService';
 
 const COLLECTION_NAME = 'atendimentos';
 
@@ -79,16 +77,6 @@ export const atendimentoService = {
         if (data.pacienteId) {
           paciente = await pacienteService.getById(data.pacienteId);
         }
-
-        // Buscar dados dos medicamentos
-        const medicamentos = await Promise.all(
-          (data.medicamentos || []).map((id: string) => medicamentoService.getById(id))
-        );
-
-        // Buscar dados dos exames
-        const exames = await Promise.all(
-          (data.exames || []).map((id: string) => exameService.getById(id))
-        );
 
         return {
           id: doc.id,

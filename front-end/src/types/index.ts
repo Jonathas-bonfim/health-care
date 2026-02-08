@@ -1,10 +1,12 @@
-// Enum para momento da coleta de glicemia
-export enum MomentoColetaGlicemia {
-  JEJUM = 1,
-  POS_PRANDIAL = 2,
-  PRE_PRANDIAL = 3,
-  NAO_IDENTIFICADO = 4,
-}
+// Momento da coleta de glicemia (const + type para compatibilidade com erasableSyntaxOnly)
+export const MomentoColetaGlicemia = {
+  JEJUM: 1,
+  POS_PRANDIAL: 2,
+  PRE_PRANDIAL: 3,
+  NAO_IDENTIFICADO: 4,
+} as const;
+
+export type MomentoColetaGlicemia = (typeof MomentoColetaGlicemia)[keyof typeof MomentoColetaGlicemia];
 
 // Tipo para exame físico
 export interface ExameFisico {
